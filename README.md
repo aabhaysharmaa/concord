@@ -147,6 +147,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### For system design details or an in-depth case study, visit my portfolio case study page.**
+![case-study](http://localhost:3000)
 
 
 ---

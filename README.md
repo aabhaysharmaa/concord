@@ -1,4 +1,4 @@
-# Concord  – Build a Discord‑Inspired Community Platform
+# Concord – Build a Discord‑Inspired Community Platform
 
 This repository contains the source code for **Concord**, a modern real‑time communication platform inspired by Discord.
 
@@ -146,24 +146,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
+### For system design details or an in-depth case study, visit my portfolio case study page.**
 
-## Project Structure
-
-```
-src/
-├── app/                 # Application routes
-├── components/          # Shared UI components
-│   └── ui/              # shadcn/ui components
-├── hooks/               # Custom React hooks
-├── lib/                 # Utilities and helpers
-├── server/              # Backend logic
-├── styles/              # Global styles
-└── types/               # TypeScript types
-
-prisma/
-├── schema.prisma        # Database schema
-```
 
 ---
 
@@ -173,18 +157,11 @@ This project is inspired by Discord and other modern community platforms. The go
 
 ---
 
-## Roadmap
-
-Planned improvements and features:
-
-* Advanced moderation tools
-* Message reactions and threads
-* Server analytics
-* Performance optimizations
-* Mobile app support
 
 ---
 
 ## License
 
 This project is licensed under the MIT License.
+
+```

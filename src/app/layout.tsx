@@ -3,7 +3,8 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-
+import { ThemeProvider } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
 const font = Open_Sans({
   subsets: ["latin"]
 })
@@ -14,20 +15,28 @@ export const metadata: Metadata = {
   icons: "/icon/concord-icon.svg"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <ClerkProvider appearance={{
-      theme : dark
+      theme: dark
     }}>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
-          className={` ${font.className} antialiased`}
+          className={cn(`${font.className} antialiased`, "bg-white dark:bg-[#313338]")}
         >
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem={false}
+            storageKey="discord-theme"
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

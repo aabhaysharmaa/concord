@@ -1,5 +1,6 @@
-import { InitialProfile } from "@/lib/initial-profile"
-import { UserButton } from "@clerk/nextjs"
+import { InitialModal } from "@/components/modals/initial-modal";
+import { InitialProfile } from "@/lib/initial-profile";
+
 import { prisma } from "@/lib/prismadb";
 import { redirect } from "next/navigation";
 
@@ -18,12 +19,7 @@ const SetUpPage = async () => {
 	if (server) {
 		return redirect(`/servers/${server.id}`)
 	}
-	return (
-		<div>
-			Create a server
-			<UserButton />
-		</div>
-	)
+	return <InitialModal/>
 }
 
 export default SetUpPage

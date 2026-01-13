@@ -2,7 +2,7 @@
 
 This repository contains the source code for **Concord**, a modern real‑time communication platform inspired by Discord.
 
-The project is built as a full‑stack learning and portfolio project, focusing on real‑time systems, scalable architecture, and production‑grade features used in modern community platforms.
+The project is built as a full-stack learning and portfolio project, focusing on real-time systems, scalable architecture, and modern community platform features, and has been validated by 600+ real users.
 
 > **Note:** This project is actively under development. Some features may be incomplete or subject to change.
 
@@ -102,19 +102,19 @@ git clone https://github.com/your-username/concord-community.git
 cd concord-community
 ```
 
-2. Install dependencies:
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Set up environment variables:
+1. Set up environment variables:
 
 ```bash
 cp .env.example .env.local
 ```
 
-4. Configure your `.env.local` file:
+1. Configure your `.env.local` file:
 
 ```env
 # Clerk
@@ -132,13 +132,13 @@ UPLOADTHING_APP_ID=
 NEXT_PUBLIC_SOCKET_URL=
 ```
 
-5. Run database migrations:
+1. Run database migrations:
 
 ```bash
 npx prisma migrate dev
 ```
 
-6. Start the development server:
+1. Start the development server:
 
 ```bash
 npm run dev
@@ -147,8 +147,8 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### For system design details or an in-depth case study, visit my portfolio case study page.**
-![case-study](http://localhost:3000)
 
+![case-study](http://localhost:3000)
 
 ---
 
@@ -158,11 +158,8 @@ This project is inspired by Discord and other modern community platforms. The go
 
 ---
 
-
 ---
 
 ## License
 
 This project is licensed under the MIT License.
-
-```

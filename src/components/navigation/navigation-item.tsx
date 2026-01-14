@@ -1,0 +1,35 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import { ActionTooltip } from "../action-tooltip";
+
+interface NavigationActionProps {
+	id: string
+	name: string
+	imageUrl: string
+}
+
+export const NavigationItem = ({ id, name, imageUrl }: NavigationActionProps) => {
+	const params = useParams();
+	const router = useRouter();
+
+	const onClick = () =>{
+		router.push(`/servers/${id}`)
+	}
+	return (
+		<ActionTooltip label={name} side="right" align="center" >
+			{/* corner slider */}
+			<button onClick={onClick} className="group cursor-pointers relative flex items-center">
+				<div className={cn("absolute  bg-primary rounded-full left-0 transition-all w-1", params?.serverId !== id && "group-hover:h-5", params.serverId === id ? "h-9" : "h-0.5")} />
+				{/* server image */}
+				<div className={cn("relative group flex mx-3 w-12 h-12  rounded-3xl group-hover:rounded-3xl",
+					params?.serverId === id && "bg-primary/10 text-primary rounded-3xl"
+				)}>
+					<Image src={imageUrl} fill alt="Channel" className="rounded-xl"  />
+				</div>
+			</button>
+		</ActionTooltip>
+	)
+}

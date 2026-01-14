@@ -1,7 +1,10 @@
+"use client";
+
 import { MemberRole } from "@/generated/prisma/enums"
 import { ServerWithMembersWithProfiles } from "@/types"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react";
+import { useModal } from "@/hooks/use-modal-store";
 
 
 interface ServerHeaderProps {
@@ -11,6 +14,8 @@ interface ServerHeaderProps {
 
 
 export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
+	const { onOpen } = useModal();
+
 	const isAdmin = role === MemberRole.ADMIN;
 	const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
@@ -19,14 +24,14 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 			<DropdownMenuTrigger
 				className="focus:outline-none" asChild
 			>
-				<button className="w-full cursor-pointer text-md justify-between font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50  transition">
+				<button className=" w-full cursor-pointer text-md justify-between font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50  transition">
 					{server.name}
 					<ChevronDown className="size-5 ml-auto" />
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56 text-xs text-black font-medium dark:text-neutral-400 space-y-2">
 				{isModerator && (
-					<DropdownMenuItem className="text-indigo-600 dark:text-indigo-300 px-3 py-2 text-sm cursor-pointer">
+					<DropdownMenuItem onClick={() => onOpen("invite", { server })} className="text-indigo-600 dark:text-indigo-300 px-3 py-2 text-sm cursor-pointer">
 						Invite people
 						<UserPlus className="size-4 dark:text-indigo-300 ml-auto" />
 					</DropdownMenuItem>

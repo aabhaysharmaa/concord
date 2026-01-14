@@ -13,12 +13,14 @@ const NavigationSidebar = async () => {
 	if (!profile) {
 		redirect("/")
 	}
-	const servers = await prisma?.server.findMany({
-		where: {
-			profileId: profile.id
+	const servers = await prisma?.server.findMany({where : {
+		members : {
+			some : {
+				profileId : profile.id
+			}
 		}
-	});
-
+	}});
+ console.log("Servers" , servers)
 	return (
 		<div className="space-y-4 flex flex-col items-center h-screen text-primary w-full dark:bg-[#1E1f22] py-3">
 			<NavigationAction/>

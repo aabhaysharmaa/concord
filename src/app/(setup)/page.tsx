@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 const SetUpPage = async () => {
 	const profile = await InitialProfile();
+
 	const server = await prisma.server.findFirst({
 		where: {
 			members: {
@@ -19,6 +20,7 @@ const SetUpPage = async () => {
 	if (server) {
 		return redirect(`/servers/${server.id}`)
 	}
+
 	return <InitialModal/>
 }
 

@@ -19,12 +19,12 @@ import {
 	FormLabel
 } from "@/components/ui/form";
 
-
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { FileUpload } from "../file-upload";
+
 
 const formSchema = z.object({
 	name: z.string().min(1, "Server name is required."),
@@ -43,12 +43,11 @@ export const InitialModal = () => {
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		console.log(values)
+		console.log({ values })
 	}
-
 	return (
 		<Dialog open>
-			<DialogContent className="bg-white text-black p-0 overflow-hidden">
+			<DialogContent className="bg-white  text-black p-0 overflow-hidden">
 				<DialogHeader className="pt-8 px-6">
 					<DialogTitle className="text-center font-bold text-2xl">Customize your server</DialogTitle>
 					<DialogDescription className="text-center text-zinc-500">Give your server a personality with a name and an image. you can always change it later</DialogDescription>
@@ -57,7 +56,21 @@ export const InitialModal = () => {
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 						<div className="space-y-8 px-6">
 							<div className="flex items-center justify-center text-center">
-								 TODO : image upload
+								<FormField
+									control={form.control}
+									name="imageUrl"
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<FileUpload
+													endpoint="serverImage"
+													value={field.value}
+													onChange={field.onChange}
+												/>
+											</FormControl>
+										</FormItem>
+									)}
+								/>
 							</div>
 							<FormField
 								name="name"

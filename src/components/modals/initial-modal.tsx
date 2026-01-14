@@ -24,6 +24,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FileUpload } from "../file-upload";
+import { toast } from "sonner";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 
 const formSchema = z.object({
@@ -32,6 +35,7 @@ const formSchema = z.object({
 })
 
 export const InitialModal = () => {
+	const router = useRouter();
 	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -42,8 +46,18 @@ export const InitialModal = () => {
 
 	const isLoading = form.formState.isSubmitting;
 
-	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		console.log({ values })
+	const onSubmit = async(values: z.infer<typeof formSchema>) => {
+		try {
+			await axios.post("/api/server", values)
+
+			toast.success("Server Created")
+			form.reset()
+			router.refresh();
+			window.location.reload() ;
+		} catch (error) {
+			console.log(error)
+			toast.error("Something went Wrong!")
+		}
 	}
 	return (
 		<Dialog open>

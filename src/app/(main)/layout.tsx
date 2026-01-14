@@ -4,11 +4,11 @@ import React, { ReactNode } from 'react'
 const MainLayout = async ({ children }: { children: ReactNode }) => {
 	return (
 		<div className='h-full'>
-			<div className="hidden md:flex h-full w-18 z-30  flex-col fixed inset-y-0">
+			<div className="hidden md:flex h-full w-17 z-30  flex-col fixed inset-y-0">
 				<NavigationSidebar />
 			</div>
 
-			<main className='md:pl-18 h-full'>
+			<main className='md:pl-17 h-full'>
 				{children}
 			</main>
 		</div>

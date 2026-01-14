@@ -24,10 +24,10 @@ export const NavigationItem = ({ id, name, imageUrl }: NavigationActionProps) =>
 			<button onClick={onClick} className="group cursor-pointer relative flex items-center">
 				<div className={cn("absolute  bg-primary rounded-full left-0 transition-all w-1", params?.serverId !== id && "group-hover:h-5", params.serverId === id ? "h-9" : "h-2")} />
 				{/* server image */}
-				<div className={cn("relative group flex mx-3 w-12 h-12  rounded-3xl group-hover:rounded-3xl",
+				<div className={cn("relative group flex mx-3 w-10 h-10  rounded-3xl group-hover:rounded-3xl",
 					params?.serverId === id && "bg-primary/10 text-primary rounded-3xl"
 				)}>
-					<Image src={imageUrl} fill alt="Channel" className="rounded-xl object-cover"  />
+					<Image src={imageUrl} fill alt="Channel" className="rounded-full  object-cover"  />
 				</div>
 			</button>
 		</ActionTooltip>

@@ -5,13 +5,10 @@ import { ServerWithMembersWithProfiles } from "@/types"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
-
-
 interface ServerHeaderProps {
 	server: ServerWithMembersWithProfiles
 	role?: MemberRole;
 }
-
 
 export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 	const { onOpen } = useModal();
@@ -37,7 +34,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 					</DropdownMenuItem>
 				)}
 				{isAdmin && (
-					<DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+					<DropdownMenuItem onClick={() => onOpen("editServer", { server })} className="px-3 py-2 text-sm cursor-pointer">
 						Server Settings
 						<Settings className="ml-auto size-4 " />
 					</DropdownMenuItem>

@@ -17,7 +17,7 @@ const NavigationSidebar = async () => {
 		where: {
 			profileId: profile.id
 		}
-	})
+	});
 
 	return (
 		<div className="space-y-4 flex flex-col items-center h-screen text-primary w-full dark:bg-[#1E1f22] py-3">
@@ -38,7 +38,7 @@ const NavigationSidebar = async () => {
 				<ModeToggle/>
 				<UserButton afterSignOutUrl="/" appearance={{
 					elements : {
-						avatarBox : {width : "40px" , height : "40px" , borderRadius : "30%"}
+						avatarBox : {width : "40px" , height : "40px" }
 					}
 				}} />
 			</div>

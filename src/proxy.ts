@@ -1,7 +1,7 @@
 import { clerkMiddleware as Proxy, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse  } from 'next/server';
 
-const isPublicRoutes = createRouteMatcher(['/login',"/register"]);
+const isPublicRoutes = createRouteMatcher(['/login',"/register","/api/uploadthing(.*)"]);
 const isPrivateRoutes = createRouteMatcher(['/']);
 export default Proxy((auth, req) => {
 	if (isPublicRoutes(req)) {

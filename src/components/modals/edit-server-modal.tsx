@@ -29,7 +29,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const formSchema = z.object({
@@ -38,8 +38,8 @@ const formSchema = z.object({
 })
 
 export const EditServerModal = () => {
-	const { isOpen, onClose, type } = useModal();
-
+	const { isOpen, onClose, type, data } = useModal();
+	const { server } = data
 	const isModalOpen = isOpen && type === "editServer";
 	const [createIsLoading, setCreateIsLoading] = useState(false);
 	const router = useRouter();
@@ -50,14 +50,21 @@ export const EditServerModal = () => {
 			imageUrl: ""
 		}
 	})
+	// fetching data form this server
+	useEffect(() => {
+		if (server) {
+			form.setValue("name", server.name)
+			form.setValue("imageUrl", server.imageUrl)
+		}
+	}, [server, form])
 
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		setCreateIsLoading(true)
 		try {
-			await axios.post("/api/server", values)
-			toast.success("Server Created")
+			await axios.patch(`/api/server/${server?.id}`, values)
+			toast.success("Setting Updated")
 			form.reset()
 			router.refresh();
 			onClose();
@@ -116,7 +123,7 @@ export const EditServerModal = () => {
 						</div>
 						<DialogFooter className="bg-gray-100 px-6 py-4">
 							<Button variant="primary" className="w-20" disabled={isLoading}>
-								{createIsLoading ? <Loader2 className="size-5  text-white animate-spin" /> : "Create"}
+								{createIsLoading ? <Loader2 className="size-5  text-white animate-spin" /> : "Save"}
 							</Button>
 						</DialogFooter>
 					</form>

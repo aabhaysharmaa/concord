@@ -27,6 +27,8 @@ import { FileUpload } from "../file-upload";
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 
 const formSchema = z.object({
@@ -43,13 +45,13 @@ export const InitialModal = () => {
 			imageUrl: ""
 		}
 	})
-
+	const [isCreating, setIsCreating] = useState(false);
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		setIsCreating(true)
 		try {
 			await axios.post("/api/server", values)
-
 			toast.success("Server Created")
 			form.reset()
 			router.refresh();
@@ -57,6 +59,8 @@ export const InitialModal = () => {
 		} catch (error) {
 			console.log(error)
 			toast.error("Something went Wrong!")
+		} finally {
+			setIsCreating(false)
 		}
 	}
 
@@ -102,7 +106,9 @@ export const InitialModal = () => {
 							/>
 						</div>
 						<DialogFooter className="bg-gray-100 px-6 py-4">
-							<Button variant="primary" disabled={isLoading}>Create</Button>
+							<Button variant="primary" disabled={isLoading}>
+								{isCreating ? <Loader2 className="size-5 animate-spin" /> : "Create"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

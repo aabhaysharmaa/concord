@@ -3,9 +3,11 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { ThemeProvider } from "@/components/theme-provider";
+
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { ModalProvider } from "@/providers/modal-provider";
 const font = Open_Sans({
   subsets: ["latin"]
 })
@@ -36,6 +38,7 @@ export default async function RootLayout({
             storageKey="discord-theme"
             disableTransitionOnChange
           >
+            <ModalProvider/>
             {children}
             <Toaster/>
           </ThemeProvider>

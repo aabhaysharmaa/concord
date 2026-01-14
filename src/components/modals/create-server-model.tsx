@@ -27,6 +27,9 @@ import { FileUpload } from "../file-upload";
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/hooks/use-modal-store";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 
 const formSchema = z.object({
@@ -34,7 +37,11 @@ const formSchema = z.object({
 	imageUrl: z.string().min(1, "Server Image is required.")
 })
 
-export const InitialModal = () => {
+export const CreateServerModal = () => {
+	const { isOpen, onClose, type } = useModal();
+
+	const isModalOpen = isOpen && type === "createServer";
+	const [createIsLoading, setCreateIsLoading] = useState(false);
 	const router = useRouter();
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -47,21 +54,27 @@ export const InitialModal = () => {
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		setCreateIsLoading(true)
 		try {
 			await axios.post("/api/server", values)
-
 			toast.success("Server Created")
 			form.reset()
 			router.refresh();
-			window.location.reload();
 		} catch (error) {
 			console.log(error)
 			toast.error("Something went Wrong!")
+		}finally {
+			setCreateIsLoading(false)
+			onClose();
 		}
 	}
 
+	const handleClose = () => {
+		form.reset();
+		onClose();
+	}
 	return (
-		<Dialog open  >
+		<Dialog open={isModalOpen} onOpenChange={handleClose}>
 			<DialogContent className="bg-white  text-black p-0 overflow-hidden">
 				<DialogHeader className="pt-8 px-6">
 					<DialogTitle className="text-center font-bold text-2xl">Customize your server</DialogTitle>
@@ -102,7 +115,9 @@ export const InitialModal = () => {
 							/>
 						</div>
 						<DialogFooter className="bg-gray-100 px-6 py-4">
-							<Button variant="primary" disabled={isLoading}>Create</Button>
+							<Button variant="primary" className="w-20" disabled={isLoading}>
+								{createIsLoading ? <Loader2 className="size-5  text-white animate-spin" /> : "Create"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

@@ -1,4 +1,5 @@
 "use client";
+
 import * as z from "zod";
 
 import {
@@ -29,8 +30,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
-
+import { useState } from "react"
 
 const formSchema = z.object({
 	name: z.string().min(1, "Server name is required."),

@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { ActionTooltip } from "../action-tooltip";
+import { useEffect, useState } from "react";
 
 interface NavigationActionProps {
 	id: string
@@ -15,9 +16,16 @@ export const NavigationItem = ({ id, name, imageUrl }: NavigationActionProps) =>
 	const params = useParams();
 	const router = useRouter();
 
-	const onClick = () =>{
+	const onClick = () => {
 		router.push(`/servers/${id}`)
 	}
+	const [isMounted, setIsMounted] = useState(false);
+
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setIsMounted(true)
+	}, [])
+	if (!isMounted) return
 	return (
 		<ActionTooltip label={name} side="right" align="center" >
 			{/* corner slider */}
@@ -27,7 +35,7 @@ export const NavigationItem = ({ id, name, imageUrl }: NavigationActionProps) =>
 				<div className={cn("relative group flex mx-3 w-10 h-10  rounded-3xl group-hover:rounded-3xl",
 					params?.serverId === id && "bg-primary/10 text-primary rounded-3xl"
 				)}>
-					<Image src={imageUrl || "/icon/concord-icon.svg"} fill alt="Channel" className="rounded-full  object-cover"  />
+					<Image src={imageUrl || "/icon/concord-icon.svg"} fill alt="Channel" className="rounded-full  object-cover" />
 				</div>
 			</button>
 		</ActionTooltip>

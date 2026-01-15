@@ -57,7 +57,7 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 			}}
 
 
-			className="border-2  border-zinc-300 flex cursor-pointer flex-col border-dashed text-[#A294F9] w-70 h-60" endpoint={endpoint} onClientUploadComplete={(res: any) => {
+			className="border-2  border-zinc-300 flex cursor-pointer flex-col border-dashed dark:border-neutral-500 text-[#A294F9] w-70 h-60" endpoint={endpoint} onClientUploadComplete={(res: any) => {
 				console.log("RES", res?.[0].url)
 				onChange(res?.[0].url)
 			}}

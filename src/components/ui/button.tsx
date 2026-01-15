@@ -1,3 +1,5 @@
+"use client" ;
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -48,7 +50,13 @@ function Button({
     asChild?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
+const [isMounted, setIsMounted] = React.useState(false)
 
+  React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true)
+  }, [])
+  if (!isMounted) return
   return (
     <Comp
       data-slot="button"

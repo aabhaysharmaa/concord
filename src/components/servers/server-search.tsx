@@ -22,6 +22,7 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
 	const [open, setOpen] = useState(false);
 	const router = useRouter();
 	const params = useParams();
+	const [isMounted, setIsMounted] = useState(false);
 
 	// TODO fix
 	useEffect(() => {
@@ -43,6 +44,11 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
 			return router.push(`/api/server/${params?.serverId}/channels/${id}`)
 		}
 	}
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setIsMounted(true);
+	}, [])
+	if (!isMounted) return
 	return (
 		<>
 			<button onClick={() => setOpen(true)} className="group px-2 py-2   cursor-pointer rounded-md flex items-center gap-x-3 w-full hover:bg-zinc-700/10!   dark:hover:bg-zinc-700/50! transition">
@@ -68,7 +74,7 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
 							<CommandGroup key={label} heading={label}>
 								{data?.map(({ id, icon, name }) => {
 									return (
-										<CommandItem key={id} onSelect={() => onClick({id,type})}>
+										<CommandItem key={id} onSelect={() => onClick({ id, type })}>
 											{icon}
 											<span>{name}</span>
 										</CommandItem>

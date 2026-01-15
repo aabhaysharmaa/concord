@@ -54,6 +54,11 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
 }) {
+  const [isMounted, setIsMounted] = React.useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, [])
+if(!isMounted)  return
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />

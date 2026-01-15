@@ -10,6 +10,7 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
 	return (
 		<div>
 			Server Id : {serverId}
+			hello
 		</div>
 	)
 }

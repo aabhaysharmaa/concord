@@ -1,6 +1,6 @@
 import { currentProfile } from "@/lib/current-profile";
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prismadb";
+import { NextRequest, NextResponse } from "next/server";
 
 
 export async function PATCH(req: NextRequest, { params }: { params: { serverId: string } }) {

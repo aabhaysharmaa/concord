@@ -4,8 +4,6 @@ This repository contains the source code for **Concord**, a modern real‑time c
 
 The project is strongly focus on real-time communication systems. Socket.IO is used as the core WebSocket layer, implemented from scratch to manage real-time messaging, audio/video call signaling, connection lifecycle, and fault handling without relying on third-party managed communication platforms. The system has been validated by 600+ real users.
 
-> **Note:** This project is actively under development. Some features may be incomplete or subject to change.
-
 ---
 
 ## What We’re Building

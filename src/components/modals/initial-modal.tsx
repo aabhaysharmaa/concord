@@ -106,7 +106,7 @@ export const InitialModal = () => {
 							/>
 						</div>
 						<DialogFooter className="bg-gray-100 px-6 py-4">
-							<Button variant="primary" disabled={isLoading}>
+							<Button variant="primary" disabled={isLoading} className="w-20">
 								{isCreating ? <Loader2 className="size-5 animate-spin" /> : "Create"}
 							</Button>
 						</DialogFooter>

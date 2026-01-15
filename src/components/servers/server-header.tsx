@@ -5,6 +5,7 @@ import { useModal } from "@/hooks/use-modal-store";
 import { ServerWithMembersWithProfiles } from "@/types";
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { useEffect, useState } from "react";
 
 interface ServerHeaderProps {
 	server: ServerWithMembersWithProfiles
@@ -18,7 +19,13 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 	const isAdmin = role === MemberRole.ADMIN;
 	const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
+	const [isMounted, setIsMounted] = useState(false)
 
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setIsMounted(true)
+	}, [])
+	if (!isMounted) return
 
 	return (
 		<DropdownMenu>
@@ -59,7 +66,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 					<DropdownMenuSeparator />
 				)}
 				{isAdmin && (
-					<DropdownMenuItem onClick={() => onOpen("deleteServer" ,{server})} className="px-3 text-rose-500 py-2 text-sm cursor-pointer">
+					<DropdownMenuItem onClick={() => onOpen("deleteServer", { server })} className="px-3 text-rose-500 py-2 text-sm cursor-pointer">
 						Delete Server
 						<Trash className="ml-auto size-4 text-rose-500" />
 					</DropdownMenuItem>

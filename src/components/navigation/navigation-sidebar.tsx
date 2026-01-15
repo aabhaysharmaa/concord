@@ -4,7 +4,7 @@ import { NavigationAction } from "./navigation-action";
 import { ScrollArea } from "../ui/scroll-area";
 import { NavigationItem } from "./navigation-item";
 import { ModeToggle } from "../mode-toggle";
-import { UserButton } from "@clerk/nextjs" ;
+import { UserButton } from "@clerk/nextjs";
 
 const NavigationSidebar = async () => {
 	const profile = await currentProfile();
@@ -12,17 +12,18 @@ const NavigationSidebar = async () => {
 	if (!profile) {
 		redirect("/")
 	}
-	const servers = await prisma?.server.findMany({where : {
-		members : {
-			some : {
-				profileId : profile.id
+	const servers = await prisma?.server.findMany({
+		where: {
+			members: {
+				some: {
+					profileId: profile.id
+				}
 			}
 		}
-	}});
- console.log("Servers" , servers)
+	});
 	return (
 		<div className="space-y-4 flex flex-col items-center h-screen text-primary w-full dark:bg-[#1E1f22] py-3">
-			<NavigationAction/>
+			<NavigationAction />
 			<hr className="h-0.5 rounded-md dark:bg-zinc-700  bg-zinc-300 w-8 mx-auto" />
 			<ScrollArea className="flex-1 w-full">
 				{servers?.map((server) => (
@@ -36,10 +37,10 @@ const NavigationSidebar = async () => {
 				))}
 			</ScrollArea>
 			<div className="pb-3 pt-auto flex items-center  flex-col gap-y-4 ">
-				<ModeToggle/>
+				<ModeToggle />
 				<UserButton afterSignOutUrl="/" appearance={{
-					elements : {
-						avatarBox : {width : "40px" , height : "40px" }
+					elements: {
+						avatarBox: { width: "40px", height: "40px" }
 					}
 				}} />
 			</div>

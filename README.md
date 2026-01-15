@@ -52,6 +52,7 @@ Core goals of the project:
 ### Authentication
 
 * Authentication and user management using Clerk
+* later I added AuthJs for moreover control
 
 ### Backend and Database
 

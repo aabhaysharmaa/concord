@@ -19,7 +19,7 @@ interface ActionTooltipProps {
 export const ActionTooltip = ({ label, children, side, align }: ActionTooltipProps) => {
 	return (
 		<TooltipProvider>
-			<Tooltip delayDuration={50} >
+			<Tooltip  delayDuration={50} >
 				<TooltipTrigger asChild>
 					{children}
 				</TooltipTrigger>

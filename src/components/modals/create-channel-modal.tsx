@@ -32,7 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -47,9 +47,10 @@ const formSchema = z.object({
 })
 
 export const CreateChannelModal = () => {
-	const { isOpen, onClose, type } = useModal();
+	const { isOpen, onClose, type, data } = useModal();
 
 	const isModalOpen = isOpen && type === "createChannel";
+	const { channelType } = data
 	const [createIsLoading, setCreateIsLoading] = useState(false);
 	const router = useRouter();
 	const params = useParams();
@@ -57,10 +58,16 @@ export const CreateChannelModal = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			name: "",
-			type: ChannelType.TEXT
+			type: channelType ||  ChannelType.TEXT
 		}
 	})
-
+	useEffect(() => {
+		if (channelType) {
+			form.setValue("type", channelType)
+		} else {
+			form.setValue("type","TEXT")
+		}
+	}, [channelType,type,form])
 	const isLoading = form.formState.isSubmitting;
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {

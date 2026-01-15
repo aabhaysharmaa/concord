@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/dialog";
 
 import { useModal } from "@/hooks/use-modal-store";
+import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import queryString from "query-string";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import axios from "axios";
-import queryString from "query-string";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export const LeaveServerModal = () => {
 	const { isOpen, onClose, type, data } = useModal();

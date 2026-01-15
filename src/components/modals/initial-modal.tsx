@@ -47,7 +47,11 @@ export const InitialModal = () => {
 	})
 	const [isCreating, setIsCreating] = useState(false);
 	const isLoading = form.formState.isSubmitting;
+   const [isModalOpen , setIsModalOpen] = useState(true)
 
+	const onClose = () =>{
+     setIsModalOpen(false)
+	}
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		setIsCreating(true)
 		try {
@@ -65,7 +69,7 @@ export const InitialModal = () => {
 	}
 
 	return (
-		<Dialog open  >
+		<Dialog open={isModalOpen} onOpenChange={onClose}  >
 			<DialogContent className="bg-white  text-black p-0 overflow-hidden">
 				<DialogHeader className="pt-8 px-6">
 					<DialogTitle className="text-center font-bold text-2xl">Customize your server</DialogTitle>

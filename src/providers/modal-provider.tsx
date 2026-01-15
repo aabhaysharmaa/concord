@@ -2,6 +2,7 @@
 import { CreateServerModal } from "@/components/modals/create-server-model";
 import { EditServerModal } from "@/components/modals/edit-server-modal";
 import { InviteModal } from "@/components/modals/invite-modal";
+import { MemberModal } from "@/components/modals/member-modal";
 import { useEffect, useState } from "react";
 
 
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
 			<CreateServerModal />
 			<InviteModal />
 			<EditServerModal />
+			<MemberModal/>
 		</>
 	)
 }

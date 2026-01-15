@@ -65,7 +65,7 @@ export async function PATCH(req: NextRequest) {
 
 		return NextResponse.json(server, { status: 200 })
 	} catch (error) {
-		console.log("Error in  server Route", error)
+		console.log("Error in leave server Route", error)
 		return new NextResponse("Internal Server Error", { status: 500 });
 	}
 }

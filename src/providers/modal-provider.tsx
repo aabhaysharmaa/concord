@@ -1,12 +1,12 @@
 "use client";
 import { CreateChannelModal } from "@/components/modals/create-channel-modal";
 import { CreateServerModal } from "@/components/modals/create-server-model";
+import { DeleteServerModal } from "@/components/modals/delete-server-modal";
 import { EditServerModal } from "@/components/modals/edit-server-modal";
 import { InviteModal } from "@/components/modals/invite-modal";
+import { LeaveServerModal } from "@/components/modals/leave-server-modal";
 import { MemberModal } from "@/components/modals/member-modal";
 import { useEffect, useState } from "react";
-
-
 
 export const ModalProvider = () => {
 	// we use isMounted method for protecting our components from SSR errors because it may cause hydration errors
@@ -22,8 +22,10 @@ export const ModalProvider = () => {
 			<CreateServerModal />
 			<InviteModal />
 			<EditServerModal />
-			<MemberModal/>
-			<CreateChannelModal/>
+			<MemberModal />
+			<CreateChannelModal />
+			<LeaveServerModal />
+			<DeleteServerModal/>
 		</>
 	)
 }

@@ -34,7 +34,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 			>
 				<button className=" w-full cursor-pointer text-md justify-between font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50  transition">
 					{server.name}
-					<ChevronDown className="size-5 ml-auto" />
+					<ChevronDown className="size-5 hidden md:flex ml-auto" />
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56 text-xs text-black font-medium dark:text-neutral-400 space-y-2">
@@ -74,7 +74,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 				{!isAdmin && (
 					<DropdownMenuItem onClick={() => onOpen("leaveServer", { server })} className="px-3 text-rose-500 py-2 text-sm cursor-pointer">
 						Leave Server
-						<LogOut className="ml-auto size-4 text-rose-500" />
+						<LogOut className="ml-auto size-4  text-rose-500" />
 					</DropdownMenuItem>
 				)}
 			</DropdownMenuContent>

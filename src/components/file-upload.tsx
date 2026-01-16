@@ -42,7 +42,7 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 						fontSize: "1rem",
 						color: "black",
 						...(ready && { color: "white", padding: "20px", background: "#A294F9", marginBottom: "20px", marginTop: "20px", fontWeight: "bold", cursor: "pointer" }),
-						...(isUploading && { color: "#ffffff", padding: "20px" }),
+						...(isUploading && { color: "#ffffff", padding: "20px" , background : "#A294F9" }),
 					};
 				},
 				container: {

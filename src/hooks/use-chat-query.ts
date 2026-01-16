@@ -27,7 +27,10 @@ export const useChatQuery = ({
 
 			}
 		}, { skipEmptyString: true, skipNull: true })
-		const res = await fetch(url);
+		const res = await fetch(url, {
+			next: { revalidate: 0 },
+		});
+
 		return res.json();
 	}
 

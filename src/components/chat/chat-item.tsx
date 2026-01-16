@@ -1,21 +1,24 @@
 "use client";
 
 import { Member, Profile } from "@/generated/prisma/client";
-import { UserAvatar } from "../user-avatar";
-import { ActionTooltip } from "../action-tooltip";
+import { cn } from "@/lib/utils";
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import { Form, FormItem, FormControl, FormField } from "../ui/form";
 import * as z from "zod";
+import { ActionTooltip } from "../action-tooltip";
+import { Form, FormControl, FormField, FormItem } from "../ui/form";
+import { UserAvatar } from "../user-avatar";
 
-import { useForm } from "react-hook-form";
+import { useModal } from "@/hooks/use-modal-store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import axios from "axios";
 import queryString from "query-string";
+import { useForm } from "react-hook-form";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { useParams, useRouter } from "next/navigation";
+
 interface ChatItemProps {
 	id: string;
 	content: string;
@@ -67,10 +70,15 @@ export const ChatItem = ({
 	}, [content, form])
 
 	const [isEditing, setIsEditing] = useState(false);
-	const [isDeleting, setIsDeleting] = useState(false);
-
+const router = useRouter();
+const params = useParams() ;
 	const filetype = fileUrl?.split("?")[0].split(".").pop()?.toLowerCase();
-
+	const onMemberClick = () => {
+		if (member.id === currentMember.id) {
+			return member;
+		}
+		router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
+	}
 	const isAdmin = currentMember.role === "ADMIN"
 	const isModerator = currentMember.role === "MODERATOR"
 	const isOwner = currentMember.id === member.id
@@ -79,24 +87,15 @@ export const ChatItem = ({
 	const isPdf = filetype === "pdf" && fileUrl;
 	const isImage = !isPdf && fileUrl;
 	const isLoading = form.formState.isSubmitting;
+	const { onOpen } = useModal();
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			const url = queryString.stringifyUrl({
 				url: `${socketUrl}/${id}`,
-				query : socketQuery
+				query: socketQuery
 			})
 			await axios.patch(url, values)
-		} catch (error) {
-			console.log("Error in OnSubmit", error);
-		}
-	}
-	const onDelete = async() =>{
-		try {
-			const url = queryString.stringifyUrl({
-				url: `${socketUrl}/${id}`,
-				query : socketQuery
-			})
-			await axios.delete(url)
+			setIsEditing(false);
 		} catch (error) {
 			console.log("Error in OnSubmit", error);
 		}
@@ -114,12 +113,12 @@ export const ChatItem = ({
 	return (
 		<div className="relative group  flex items-center hover:bg-black/5 p-4 transition w-full">
 			<div className="group flex gap-x-2 items-start w-full">
-				<div className="cursor-pointer hover:drop-shadow-md transition">
+				<div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
 					<UserAvatar src={member.profile.imageUrl} />
 				</div>
 				<div className="flex flex-col w-full">
 					<div className="flex items-center gap-x-2">
-						<div className="flex items-center">
+						<div className="flex items-center" onClick={onMemberClick}>
 							<p className="font-semibold text-sm hover:underline cursor-pointer">{member.profile.name}</p>
 							<ActionTooltip label={member.role}>
 								{roleIconMap[member.role]}
@@ -177,7 +176,10 @@ export const ChatItem = ({
 						</ActionTooltip>
 					)}
 					<ActionTooltip label="Delete">
-						<Trash onClick={onDelete} className="cursor-pointer ml-auto size-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+						<Trash onClick={() => onOpen("deleteMessage", {
+							apiUrl: `${socketUrl}/${id}`,
+							query: socketQuery
+						})} className="cursor-pointer ml-auto size-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
 					</ActionTooltip>
 				</div>
 			)}

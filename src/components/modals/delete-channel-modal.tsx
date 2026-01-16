@@ -67,7 +67,7 @@ export const DeleteChannelModal = () => {
 						<Button className="" onClick={onClose} disabled={isLoading}>
 							Cancel
 						</Button>
-						<Button variant="primary" className="w-20" onClick={onDelete} disabled={isLoading}>
+						<Button variant="primary" className="w-full text-center" onClick={onDelete} disabled={isLoading}>
 							{isLoading ? <Loader2 className="size-5 animate-spin" /> : "Confirm"}
 						</Button>
 					</div>

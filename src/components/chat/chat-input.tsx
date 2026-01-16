@@ -9,6 +9,7 @@ import { Input } from "../ui/input";
 import { Plus, Smile } from "lucide-react";
 import axios from "axios";
 import queryString from "query-string";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ChatInputProps {
 	apiUrl: string;
@@ -33,6 +34,7 @@ const ChatInput = ({
 			content: ""
 		}
 	})
+		const {onOpen} = useModal();
 
 	const isLoading = form.formState.isSubmitting
 	const onSubmit = async (values: z.infer<typeof fromSchema>) => {
@@ -54,7 +56,7 @@ const ChatInput = ({
 					<FormItem>
 						<FormControl>
 							<div className="relative p-4 pb-6">
-								<button type="button" className="absolute top-8 left-8 size-4 bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center" onClick={() => { }}>
+								<button  type="button" className="absolute cursor-pointer top-8 left-8 size-4 bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center" onClick={() => onOpen("messageFile", { apiUrl , query}) }>
 									<Plus className="text-white dark:text-[#313338]" />
 								</button>
 								<Input {...field} disabled={isLoading} className="px-14 py-6 dark:text-white  bg-zinc-200/90 dark:bg-zinc-700/75 border-none focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark-text-zinc-200" placeholder={`Message ${type === "conversation" ? name : "#" + name}`} />

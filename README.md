@@ -2,11 +2,11 @@
 
 This repository contains the source code for **Concord**, a modern real‑time communication platform inspired by Discord.
 
-The project is strongly focus on real-time communication systems. Socket.IO is used as the core WebSocket layer, implemented from scratch to manage real-time messaging, audio/video call signaling, connection lifecycle, and fault handling without relying on third-party managed communication platforms. The system has been validated by 600+ real users  and Messages are loaded using infinite scrolling to minimize memory usage and improve real-time performance.
+The project is strongly focus on real-time communication systems. Socket.IO is used as the core WebSocket layer, implemented from scratch to manage real-time messaging, audio/video call signaling, connection lifecycle, and fault handling without relying on third-party managed communication platforms. The system has been validated by 600+ real users and Messages are loaded using infinite scrolling to minimize memory usage and improve real-time performance.
 
 ---
 
-## What We’re Building
+## What We're Building
 
 Concord Community is a community‑centric chat application that enables users to create servers, manage members, and communicate through text, voice, and video channels.
 
@@ -16,6 +16,7 @@ Core goals of the project:
 * Clean and responsive user experience
 * Secure authentication and role‑based access
 * Production‑ready backend architecture
+* 200–500 ms message propagation under normal conditions
 
 ---
 
@@ -24,6 +25,7 @@ Core goals of the project:
 ### Messaging
 
 * Real‑time messaging using Socket.IO
+* **Messages delivered in less than 1 second in both group and direct chats**
 * Edit and delete messages in real time for all users
 * Send file attachments as messages using UploadThing
 * Infinite message loading in batches of 10 using @tanstack/query
@@ -101,19 +103,19 @@ git clone https://github.com/your-username/concord-community.git
 cd concord-community
 ```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-1. Set up environment variables:
+3. Set up environment variables:
 
 ```bash
 cp .env.example .env.local
 ```
 
-1. Configure your `.env.local` file:
+4. Configure your `.env.local` file:
 
 ```env
 # Clerk
@@ -131,13 +133,13 @@ UPLOADTHING_APP_ID=
 NEXT_PUBLIC_SOCKET_URL=
 ```
 
-1. Run database migrations:
+5. Run database migrations:
 
 ```bash
 npx prisma migrate dev
 ```
 
-1. Start the development server:
+6. Start the development server:
 
 ```bash
 npm run dev
@@ -145,7 +147,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### For system design details or an in-depth case study, visit my portfolio case study page.**
+### For system design details or an in-depth case study, visit my portfolio case study page.
 
 ![case-study](http://localhost:3000)
 
@@ -154,8 +156,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Inspiration
 
 This project is inspired by Discord and other modern community platforms. The goal is to understand how real‑time communication systems are designed and built at scale.
-
----
 
 ---
 

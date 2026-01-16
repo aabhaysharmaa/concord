@@ -1,5 +1,5 @@
 "use client";
-import { useSocket } from "@/providers/socket-provider";
+import { useSocket } from "@/components/providers/socket-provider";
 import { Badge } from "./ui/badge";
 
 export const SocketIndicator = () => {

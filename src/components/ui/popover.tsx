@@ -23,6 +23,13 @@ function PopoverContent({
   sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) return
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content

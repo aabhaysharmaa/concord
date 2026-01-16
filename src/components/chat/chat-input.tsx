@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useModal } from "@/hooks/use-modal-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -46,6 +45,7 @@ const ChatInput = ({
 				query
 			})
 			await axios.post(url, values)
+			form.reset();
 		} catch (error) {
 			console.log(error)
 		}
@@ -62,7 +62,7 @@ const ChatInput = ({
 								</button>
 								<Input {...field} disabled={isLoading} className="px-14 py-6  dark:text-white  bg-zinc-200/90 dark:bg-zinc-700/75 border-none focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark-text-zinc-200" placeholder={`Message ${type === "conversation" ? name : "#" + name}`} />
 								<div className="absolute top-7 cursor-pointer right-8">
-									<EmojiPicker onChange={(emoji : string) => field.onChange(`${field.value} ${emoji}`)} />
+									<EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)} />
 								</div>
 							</div>
 						</FormControl>

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prismadb";
 import { ChatHeader } from "@/components/chat/chat-header";
 import ChatInput from "@/components/chat/chat-input";
+import { ChatMessages } from "@/components/chat/chat-messages";
 interface ChannelIdPageProps {
 	params: {
 		serverId: string;
@@ -37,7 +38,20 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 				serverId={channel.serverId}
 				type="Channel"
 			/>
-			<div className="flex-1">Future Messages</div>
+			<ChatMessages
+				member={member}
+				name={channel.name}
+				type="channel"
+				apiUrl="/api/messages"
+				socketUrl="/api/socket/messages"
+				chatId={channel.id}
+				socketQuery={{
+					channelId: channel.id,
+					serverId: channel.serverId
+				}}
+				paramKey="channelId"
+				paramValue={channel.id}
+			/>
 			<ChatInput
 				type={"channel"}
 				name={channel.name}
@@ -46,6 +60,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 					channelId: channel.id,
 					serverId: channel.serverId
 				}}
+
 			/>
 		</div>
 	)

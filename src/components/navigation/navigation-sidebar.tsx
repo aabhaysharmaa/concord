@@ -38,11 +38,11 @@ const NavigationSidebar = async () => {
 			</ScrollArea>
 			<div className="pb-3 pt-auto flex items-center  flex-col gap-y-4 ">
 				<ModeToggle />
-				<UserButton  afterSignOutUrl="/" appearance={{
+				{/* <UserButton  afterSignOutUrl="/" appearance={{
 					elements: {
 						avatarBox: { width: "40px", height: "40px" }
 					}
-				}} />
+				}} /> */}
 			</div>
 		</div>
 

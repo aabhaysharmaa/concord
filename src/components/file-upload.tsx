@@ -17,7 +17,7 @@ interface FileUploadProps {
 
 export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 	const fileType = value?.split(".").pop();
-
+	console.log("FileType :", fileType)
 	const removeImage = () => {
 		onChange("")
 	}
@@ -31,10 +31,10 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 		)
 	}
 
-	if(value && fileType === "pdf" ) {
+	if (value && fileType === "pdf") {
 		return (
 			<div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-				<FileIcon className="size-10 fill-indigo-200 stroke-indigo-400"/>
+				<FileIcon className="size-10 fill-indigo-200 stroke-indigo-400" />
 				<a href={value} target="_blank" rel="noopener noreferrer" className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline">{value}</a>
 				<button onClick={removeImage} type="button" className="size-5 rounded bg-rose-500 -right-2 -top-2 absolute text-white cursor-pointer"> </button>
 			</div>
@@ -48,7 +48,7 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 						fontSize: "1rem",
 						color: "black",
 						...(ready && { color: "white", padding: "20px", background: "#A294F9", marginBottom: "20px", marginTop: "20px", fontWeight: "bold", cursor: "pointer" }),
-						...(isUploading && { color: "#ffffff", padding: "20px" , background : "#A294F9" }),
+						...(isUploading && { color: "#ffffff", padding: "20px", background: "#A294F9" }),
 					};
 				},
 				container: {

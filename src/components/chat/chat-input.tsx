@@ -50,6 +50,18 @@ const ChatInput = ({
 			console.log(error)
 		}
 	}
+	const onDelete = async() =>{
+			try {
+			const url = queryString.stringifyUrl({
+				url: apiUrl,
+				query
+			})
+			await axios.delete(url)
+			form.reset();
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>

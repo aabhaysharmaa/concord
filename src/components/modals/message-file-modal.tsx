@@ -14,52 +14,59 @@ import {
 	Form,
 	FormControl,
 	FormField,
-	FormItem,
-	FormMessage,
-	FormLabel
+	FormItem
 } from "@/components/ui/form";
 
-import { useForm } from "react-hook-form";
+import { useModal } from "@/hooks/use-modal-store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { FileUpload } from "../file-upload";
-import { toast } from "sonner";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { FileUpload } from "../file-upload";
+import { Button } from "../ui/button";
+import queryString from "query-string";
 
 
 const formSchema = z.object({
-	name: z.string().min(1, "Server name is required."),
-	imageUrl: z.string().min(1, "Server Image is required.")
+	fileUrl: z.string().min(1, "Attachment is required.")
 })
 
-export const InitialModal = () => {
+export const MessageFileModal = () => {
+	const { isOpen, type, onClose, data } = useModal();
+	const { apiUrl, query } = data
+	const isModalOpen = isOpen && type === "messageFile"
 	const router = useRouter();
 	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			name: "",
-			imageUrl: ""
+			fileUrl: ""
 		}
 	})
+
 	const [isCreating, setIsCreating] = useState(false);
 	const isLoading = form.formState.isSubmitting;
-   const [isModalOpen , setIsModalOpen] = useState(true)
-
-	const onClose = () =>{
-     setIsModalOpen(false)
+	const handleClose = () => {
+		form.reset()
+		onClose()
 	}
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		setIsCreating(true)
 		try {
-			await axios.post("/api/server", values)
-			toast.success("Server Created")
+			const url = queryString.stringifyUrl({
+				url: apiUrl || "",
+				query
+			})
+			await axios.post(url, {
+				...values,
+				content: values.fileUrl
+			})
+			toast.success("Attachment sent")
 			form.reset()
 			router.refresh();
-			window.location.reload();
+			handleClose() ;
 		} catch (error) {
 			console.log(error)
 			toast.error("Something went Wrong!")
@@ -69,11 +76,11 @@ export const InitialModal = () => {
 	}
 
 	return (
-		<Dialog open={isModalOpen} onOpenChange={onClose}  >
+		<Dialog open={isModalOpen} onOpenChange={handleClose} >
 			<DialogContent className="bg-white   text-black p-0 overflow-hidden">
 				<DialogHeader className="pt-8 px-6">
-					<DialogTitle className="text-center font-bold text-2xl">Customize your server</DialogTitle>
-					<DialogDescription className="text-center  text-zinc-500">Give your server a personality with a name and an image. you can always change it later</DialogDescription>
+					<DialogTitle className="text-center font-bold text-2xl">Add an attachment</DialogTitle>
+					<DialogDescription className="text-center  text-zinc-500">Send a file as a message</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -81,12 +88,12 @@ export const InitialModal = () => {
 							<div className="flex items-center justify-center text-center">
 								<FormField
 									control={form.control}
-									name="imageUrl"
+									name="fileUrl"
 									render={({ field }) => (
 										<FormItem>
 											<FormControl>
 												<FileUpload
-													endpoint="serverImage"
+													endpoint="messageFile"
 													value={field.value}
 													onChange={field.onChange}
 												/>
@@ -95,23 +102,10 @@ export const InitialModal = () => {
 									)}
 								/>
 							</div>
-							<FormField
-								name="name"
-								control={form.control}
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="uppercase  text-xs font-bold text-zinc-500 dark:text-secondary/70"> Server name</FormLabel>
-										<FormControl>
-											<Input disabled={isLoading} className="bg-zinc-300/50!  border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0" placeholder="Enter server name" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
 						</div>
 						<DialogFooter className="bg-gray-100 px-6 py-4">
-							<Button variant="primary" disabled={isLoading} className="w-full text-center">
-								{isCreating ? <Loader2 className="size-5 animate-spin" /> : "Create"}
+							<Button variant="primary" disabled={isLoading} className="w-full cursor-pointer">
+								{isCreating ? <Loader2 className="size-5 animate-spin" /> : "Submit"}
 							</Button>
 						</DialogFooter>
 					</form>

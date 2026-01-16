@@ -35,7 +35,7 @@ export const NavigationItem = ({ id, name, imageUrl }: NavigationActionProps) =>
 				<div className={cn("relative group flex mx-3 w-10 h-10  rounded-3xl group-hover:rounded-3xl",
 					params?.serverId === id && "bg-primary/10 text-primary rounded-3xl"
 				)}>
-					<Image src={imageUrl || "/icon/concord-icon.svg"} fill alt="Channel" className="rounded-full  object-cover" />
+					<Image src={imageUrl || "/icon/concord-icon.svg"} fill alt="Channel" className="rounded-xl shrink-0  object-cover" />
 				</div>
 			</button>
 		</ActionTooltip>

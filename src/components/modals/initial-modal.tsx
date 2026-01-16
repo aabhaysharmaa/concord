@@ -70,10 +70,10 @@ export const InitialModal = () => {
 
 	return (
 		<Dialog open={isModalOpen} onOpenChange={onClose}  >
-			<DialogContent className="bg-white dark:bg-black  text-black p-0 overflow-hidden">
+			<DialogContent className="bg-white   text-black p-0 overflow-hidden">
 				<DialogHeader className="pt-8 px-6">
 					<DialogTitle className="text-center font-bold text-2xl">Customize your server</DialogTitle>
-					<DialogDescription className="text-center text-zinc-500">Give your server a personality with a name and an image. you can always change it later</DialogDescription>
+					<DialogDescription className="text-center  text-zinc-500">Give your server a personality with a name and an image. you can always change it later</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -100,9 +100,9 @@ export const InitialModal = () => {
 								control={form.control}
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70"> Server name</FormLabel>
+										<FormLabel className="uppercase  text-xs font-bold text-zinc-500 dark:text-secondary/70"> Server name</FormLabel>
 										<FormControl>
-											<Input disabled={isLoading} className="bg-zinc-300/50! border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0" placeholder="Enter server name" {...field} />
+											<Input disabled={isLoading} className="bg-zinc-300/50!  border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0" placeholder="Enter server name" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
